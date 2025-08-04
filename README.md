@@ -1,18 +1,22 @@
 # OOP-Math-microservice
 A python developed Math microservice that uses predefined functions like fib, power and ! to calculate equations.
-http://172.31.25.190:5000 
-http://127.0.0.1:5000 - main host
-Database visualization : https://inloop.github.io/sqlite-viewer/ -> request.db introduced in this sqlite viewer to view the database
-JSON visualization : log.json - visualizing the querrys live being introduced
-Directors : -db -> Database (director where the Python database code is located)
+
+
+
+	Database visualization : https://inloop.github.io/sqlite-viewer/ -> request.db introduced in this sqlite viewer to view the database
+
+	JSON visualization : log.json - visualizing the querrys live being introduced
+
+	Directors : -db -> Database (director where the Python database code is located)
             -services -> MathService ( director where are the three main functions used in Python: fibonacci, power and factorial)
             -templates -> index.html ( template for the API )
-Math_microservice_main : the main Python code where the applications start.
-Requirements: install flask - pip install flask
+	    
+	Math_microservice_main : the main Python code where the applications start.
+	Requirements: install flask - pip install flask
 	      install pydantic - pip install pydantic
 
 
-STEP 1.
+	STEP 1.
 	
 	Creating the python scripts :
 
