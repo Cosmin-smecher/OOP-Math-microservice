@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Math Microservice</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f7f7f7;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    input[type="number"] {
+      padding: 8px;
+      margin: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 8px 12px;
+      margin: 5px;
+      background-color: #4285F4;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #3367d6;
+    }
+
+    .result-box {
+      background-color: white;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 8px;
+      width: 300px;
+      font-size: 18px;
+      color: #222;
+    }
+
+    .error {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+
+  <script>
+    async function calculate(operation) {
+      let url = '/' + operation + '?';
+      let errorBox = document.getElementById('error');
+      let resultBox = document.getElementById('result');
+
+      errorBox.innerText = '';
+      resultBox.innerText = '';
+
+      if (operation === 'pow') {
+        const x = document.getElementById('x').value;
+        const y = document.getElementById('y').value;
+        if (!x || !y) {
+          errorBox.innerText = 'Introduceți ambele valori!';
+          return;
+        }
+        url += 'x=' + x + '&y=' + y;
+      } else {
+        const n = document.getElementById('n').value;
+        if (!n) {
+          errorBox.innerText = 'Introduceți o valoare!';
+          return;
+        }
+        url += 'n=' + n;
+      }
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (response.status !== 200) {
+          errorBox.innerText = "Număr invalid!";
+          return;
+        }
+
+        resultBox.innerText = 'Rezultat: ' + data.result;
+      } catch (err) {
+        errorBox.innerText = 'Eroare la server!';
+      }
+    }
+  </script>
+</head>
+
+<body>
+  <h1>Math Microservice Interface</h1>
+
+  <div>
+    <h2>Factorial / Fibonacci</h2>
+    <input type="number" id="n" placeholder="Introduceți n">
+    <button onclick="calculate('factorial')">Calcul Factorial</button>
+    <button onclick="calculate('fibonacci')">Calcul Fibonacci</button>
+  </div>
+
+  <div>
+    <h2>Putere</h2>
+    <input type="number" id="x" placeholder="Baza (x)">
+    <input type="number" id="y" placeholder="Exponentul (y)">
+    <button onclick="calculate('pow')">Calcul x ^ y</button>
+  </div>
+
+  <div id="error" class="error"></div>
+  <div id="result" class="result-box"></div>
+</body>
+</html>
